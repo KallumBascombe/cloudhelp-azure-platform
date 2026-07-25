@@ -27,3 +27,21 @@ variable "cost_centre" {
   description = "Business department responsible for the Azure costs."
   type        = string
 }
+
+variable "vnet_address_space" {
+  description = "Address space for the CloudHelp virtual network"
+  type        = list(string)
+  default     = ["10.10.0.0/16"]
+}
+
+variable "app_subnet_address_prefixes" {
+  description = "Address prefixes for the application subnet"
+  type        = list(string)
+  default     = ["10.10.1.0/24"]
+}
+
+variable "private_endpoint_subnet_address_prefixes" {
+  description = "Address prefixes for the private endpoint subnet"
+  type        = list(string)
+  default     = ["10.10.2.0/24"]
+}

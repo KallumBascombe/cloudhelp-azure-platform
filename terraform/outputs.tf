@@ -27,3 +27,13 @@ output "private_endpoint_subnet_id" {
   description = "Resource ID of the private endpoint subnet"
   value       = azurerm_subnet.private_endpoints.id
 }
+
+output "app_network_security_group_name" {
+  description = "Name of the application subnet network security group"
+  value       = azurerm_network_security_group.app.name
+}
+
+output "app_network_security_group_id" {
+  description = "Resource ID of the application subnet network security group"
+  value       = azurerm_network_security_group.app.id
+}

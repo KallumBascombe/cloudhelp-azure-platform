@@ -95,10 +95,10 @@ Future milestones will introduce:
 - [x] Key Vault
 - [x] Managed Identity
 
-⬜ Application
-    ⬜ App Service
-    ⬜ Private Endpoint
-    ⬜ Application Settings
+- [] Application
+- [] App Service
+- [] Private Endpoint
+- [] Application Settings
 
 ⬜ Monitoring
     ⬜ Log Analytics

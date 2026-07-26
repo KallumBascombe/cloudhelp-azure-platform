@@ -23,31 +23,49 @@ The primary goal of this repository is to demonstrate practical Azure and DevOps
 
 ## Technology Stack
 
+### Cloud
+
 - Microsoft Azure
+
+### Infrastructure as Code
+
 - Terraform
+
+### DevOps
+
 - Git
 - GitHub
-- GitHub Actions *(coming soon)*
+- GitHub Actions
+
+### Scripting
+
 - Azure CLI
-- Linux *(coming soon)*
-- PowerShell *(coming soon)*
-- Docker & Azure Container Apps *(coming soon)*
+- PowerShell
+
+### Platform
+
+- Linux
+- Docker
+- Azure Container Apps
 
 ---
 
 ## Current Architecture
 
-The project is currently in the planning stage.
-
-The first milestone will deploy:
+The current environment consists of:
 
 - Resource Group
 - Virtual Network
 - App Subnet
-- Management Subnet
+- Private Endpoint Subnet
+- Network Security Group
 - Storage Account
+- Blob Container
+- Key Vault
+- User Assigned Managed Identity
+- Azure RBAC
 
-An architecture diagram will be added as the project progresses.
+An architecture diagram will be added as the project evolves.
 
 ---
 
@@ -68,36 +86,89 @@ cloudhelp-azure-platform/
 ---
 
 ## Roadmap
-
-### Phase 1
-- Project planning
-- Development environment setup
-- GitHub repository creation
-
-### Month 1
-- Terraform fundamentals
-- Deploy Resource Group
-- Deploy Virtual Network
-- Deploy Subnets
-- Deploy Storage Account
-
 Future milestones will introduce:
 
-- Linux Virtual Machine
-- Key Vault
-- Managed Identity
-- Azure Monitor
-- Log Analytics
-- Recovery Services Vault
-- Azure Container Registry
-- Azure Container Apps
-- GitHub Actions
-- PowerShell automation
+### Foundation
+- [x] Resource Group
+- [x] Virtual Network
+- [x] Storage Account
+- [x] Key Vault
+- [x] Managed Identity
 
----
+### Application
+- [ ] App Service
+- [ ] Private Endpoint
+- [ ] Application Settings
 
-## Status
+### Monitoring
+- [ ] Log Analytics
+- [ ] Azure Monitor
+- [ ] Alerts
 
-🚧 Work in Progress
+### DevOps
+- [ ] GitHub Actions
+- [ ] Remote State
+- [ ] CI/CD Pipeline
+
+### Security
+- [ ] Microsoft Defender for Cloud
+- [ ] Web Application Firewall (WAF)
+- [ ] Private DNS
+
+**Azure Infrastructure**
+
+✔ Resource Groups
+✔ Virtual Networks
+✔ Subnets
+✔ Storage Accounts
+✔ Key Vault
+✔ Managed Identity
+✔ RBAC
+
+**Infrastructure as Code**
+
+✔ Terraform
+✔ State Management
+✔ Outputs
+✔ Variables
+✔ Dependency Management
+
+**DevOps**
+
+✔ Git
+✔ Feature Branches
+✔ Pull Requests
+✔ Code Reviews
+✔ Repository Documentation
+
+## Architecture
+
+The diagram below illustrates the current Azure infrastructure for the CloudHelp platform.
+
+![CloudHelp Architecture](diagrams/architecture.png)
+
+## Deployment Workflow
+
+```text
+Feature Branch
+      │
+Terraform Development
+      │
+terraform fmt
+      │
+terraform validate
+      │
+terraform plan
+      │
+terraform apply
+      │
+Verification
+      │
+Pull Request
+      │
+Merge
+      │
+Sync main
+```
 
 This repository is being developed as a long-term Azure DevOps portfolio project and will continue to evolve over time.

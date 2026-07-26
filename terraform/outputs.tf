@@ -77,3 +77,18 @@ output "current_user_key_vault_role_assignment_id" {
   description = "Resource ID of the current user's Key Vault Secrets Officer role assignment"
   value       = azurerm_role_assignment.current_user_key_vault_secrets_officer.id
 }
+
+output "application_identity_id" {
+  description = "Resource ID of the CloudHelp application managed identity"
+  value       = azurerm_user_assigned_identity.application.id
+}
+
+output "application_identity_client_id" {
+  description = "Client ID of the CloudHelp application managed identity"
+  value       = azurerm_user_assigned_identity.application.client_id
+}
+
+output "application_identity_principal_id" {
+  description = "Principal ID of the CloudHelp application managed identity"
+  value       = azurerm_user_assigned_identity.application.principal_id
+}

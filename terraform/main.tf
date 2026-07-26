@@ -111,3 +111,17 @@ resource "azurerm_role_assignment" "current_user_key_vault_secrets_officer" {
   role_definition_name = "Key Vault Secrets Officer"
   principal_id         = data.azurerm_client_config.current.object_id
 }
+
+resource "azurerm_user_assigned_identity" "application" {
+  name                = "cloudhelp-dev-app-identity"
+  location            = azurerm_resource_group.cloudhelp.location
+  resource_group_name = azurerm_resource_group.cloudhelp.name
+
+  tags = local.common_tags
+}
+
+resource "azurerm_role_assignment" "application_key_vault_secrets_user" {
+  scope                = azurerm_key_vault.cloudhelp.id
+  role_definition_name = "Key Vault Secrets User"
+  principal_id         = azurerm_user_assigned_identity.application.principal_id
+}

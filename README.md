@@ -141,6 +141,12 @@ Future milestones will introduce:
 ✔ Code Reviews
 ✔ Repository Documentation
 
+## Architecture
+
+The diagram below illustrates the current Azure infrastructure for the CloudHelp platform.
+
+![CloudHelp Architecture](diagrams/architecture.png)
+
 ## Deployment Workflow
 
 ```text

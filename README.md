@@ -91,29 +91,29 @@ Future milestones will introduce:
 ### Foundation
 - [x] Resource Group
 - [x] Virtual Network
-- [x] Storage
+- [x] Storage Account
 - [x] Key Vault
 - [x] Managed Identity
 
-- [] Application
-- [] App Service
-- [] Private Endpoint
-- [] Application Settings
+### Application
+- [ ] App Service
+- [ ] Private Endpoint
+- [ ] Application Settings
 
-⬜ Monitoring
-    ⬜ Log Analytics
-    ⬜ Azure Monitor
-    ⬜ Alerts
+### Monitoring
+- [ ] Log Analytics
+- [ ] Azure Monitor
+- [ ] Alerts
 
-⬜ DevOps
-    ⬜ GitHub Actions
-    ⬜ Remote State
-    ⬜ CI/CD
+### DevOps
+- [ ] GitHub Actions
+- [ ] Remote State
+- [ ] CI/CD Pipeline
 
-⬜ Security
-    ⬜ Defender
-    ⬜ WAF
-    ⬜ Private DNS
+### Security
+- [ ] Microsoft Defender for Cloud
+- [ ] Web Application Firewall (WAF)
+- [ ] Private DNS
 
 **Azure Infrastructure**
 

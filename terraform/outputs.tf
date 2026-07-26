@@ -72,3 +72,8 @@ output "key_vault_uri" {
   description = "URI used to access the CloudHelp Key Vault"
   value       = azurerm_key_vault.cloudhelp.vault_uri
 }
+
+output "current_user_key_vault_role_assignment_id" {
+  description = "Resource ID of the current user's Key Vault Secrets Officer role assignment"
+  value       = azurerm_role_assignment.current_user_key_vault_secrets_officer.id
+}

@@ -105,3 +105,9 @@ resource "azurerm_key_vault" "cloudhelp" {
 
   tags = local.common_tags
 }
+
+resource "azurerm_role_assignment" "current_user_key_vault_secrets_officer" {
+  scope                = azurerm_key_vault.cloudhelp.id
+  role_definition_name = "Key Vault Secrets Officer"
+  principal_id         = data.azurerm_client_config.current.object_id
+}

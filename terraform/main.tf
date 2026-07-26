@@ -11,6 +11,8 @@ locals {
   }
 }
 
+data "azurerm_client_config" "current" {}
+
 resource "azurerm_resource_group" "cloudhelp" {
   name     = local.resource_group_name
   location = var.location
@@ -81,4 +83,25 @@ resource "azurerm_storage_container" "customer_files" {
   name                  = "customer-files"
   storage_account_id    = azurerm_storage_account.cloudhelp.id
   container_access_type = "private"
+}
+
+resource "random_string" "key_vault_suffix" {
+  length  = 6
+  upper   = false
+  special = false
+}
+
+resource "azurerm_key_vault" "cloudhelp" {
+  name                = "${var.company_name}-${var.environment}-kv-${random_string.key_vault_suffix.result}"
+  location            = azurerm_resource_group.cloudhelp.location
+  resource_group_name = azurerm_resource_group.cloudhelp.name
+  tenant_id           = data.azurerm_client_config.current.tenant_id
+  sku_name            = "standard"
+
+  rbac_authorization_enabled    = true
+  soft_delete_retention_days    = 7
+  purge_protection_enabled      = false
+  public_network_access_enabled = true
+
+  tags = local.common_tags
 }

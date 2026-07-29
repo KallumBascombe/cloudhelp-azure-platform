@@ -42,3 +42,9 @@ terraform.rc
 # Optional: ignore plan files saved before destroying Terraform configuration
 # Uncomment the line below if you want to ignore planout files.
 # planout
+
+# Bootstrap Terraform
+bootstrap/terraform-state/.terraform/
+bootstrap/terraform-state/*.tfstate
+bootstrap/terraform-state/*.tfstate.*
+bootstrap/terraform-state/terraform.tfvars

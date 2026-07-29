@@ -1,0 +1,4 @@
+location             = "East US"
+resource_group_name  = "cloudhelp-tfstate-rg"
+storage_account_name = "cloudhelptfstate"
+container_name       = "tfstate"

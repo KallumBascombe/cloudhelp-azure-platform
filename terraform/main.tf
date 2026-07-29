@@ -61,6 +61,7 @@ resource "random_string" "storage_suffix" {
   length  = 6
   upper   = false
   special = false
+  numeric = true
 }
 
 resource "azurerm_storage_account" "cloudhelp" {
@@ -89,6 +90,7 @@ resource "random_string" "key_vault_suffix" {
   length  = 6
   upper   = false
   special = false
+  numeric = true
 }
 
 resource "azurerm_key_vault" "cloudhelp" {
@@ -98,8 +100,11 @@ resource "azurerm_key_vault" "cloudhelp" {
   tenant_id           = data.azurerm_client_config.current.tenant_id
   sku_name            = "standard"
 
-  rbac_authorization_enabled    = true
-  soft_delete_retention_days    = 7
+  rbac_authorization_enabled = true
+  soft_delete_retention_days = 7
+
+  # Development settings; production would use private access
+  # and evaluate enabling purge protection.
   purge_protection_enabled      = false
   public_network_access_enabled = true
 
@@ -113,7 +118,7 @@ resource "azurerm_role_assignment" "current_user_key_vault_secrets_officer" {
 }
 
 resource "azurerm_user_assigned_identity" "application" {
-  name                = "cloudhelp-dev-app-identity"
+  name                = "${var.company_name}-${var.environment}-app-identity"
   location            = azurerm_resource_group.cloudhelp.location
   resource_group_name = azurerm_resource_group.cloudhelp.name
 

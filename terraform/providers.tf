@@ -1,5 +1,5 @@
 terraform {
-  required_version = ">= 1.5.0"
+  required_version = ">= 1.5.0, < 2.0.0"
 
   required_providers {
     azurerm = {
@@ -17,6 +17,9 @@ terraform {
 provider "azurerm" {
   features {}
 
-  subscription_id                 = "2a57ec4f-fc3c-4d10-8190-a963a8147c84"
+  subscription_id = var.subscription_id
+
+  # Resource providers are registered separately rather than
+  # automatically by the AzureRM provider.
   resource_provider_registrations = "none"
 }

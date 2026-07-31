@@ -19,6 +19,20 @@ jobs:
     name: Terraform validation
     runs-on: ubuntu-latest
 
+    env:
+      ARM_CLIENT_ID: ${{ vars.AZURE_CLIENT_ID }}
+      ARM_TENANT_ID: ${{ vars.AZURE_TENANT_ID }}
+      ARM_SUBSCRIPTION_ID: ${{ vars.AZURE_SUBSCRIPTION_ID }}
+      ARM_USE_OIDC: true
+
+      TF_VAR_subscription_id: ${{ vars.AZURE_SUBSCRIPTION_ID }}
+      TF_VAR_company_name: ${{ vars.TF_COMPANY_NAME }}
+      TF_VAR_environment: ${{ vars.TF_ENVIRONMENT }}
+      TF_VAR_location: ${{ vars.TF_LOCATION }}
+      TF_VAR_owner: ${{ vars.TF_OWNER }}
+      TF_VAR_cost_centre: ${{ vars.TF_COST_CENTRE }}
+      TF_VAR_key_vault_admin_object_id: ${{ vars.TF_KEY_VAULT_ADMIN_OBJECT_ID }}
+
     defaults:
       run:
         working-directory: terraform
@@ -46,8 +60,11 @@ jobs:
         run: terraform fmt -check -recursive
 
       - name: Terraform init
-        run: terraform init -backend=false
+        run: terraform init -input=false -backend-config=backend.hcl
 
       - name: Terraform validate
         run: terraform validate
+
+      - name: Terraform plan
+        run: terraform plan -input=false -no-color
         

@@ -37,6 +37,11 @@ variable "subscription_id" {
   type        = string
 }
 
+variable "key_vault_admin_object_id" {
+  description = "Microsoft Entra object ID of the user responsible for administering Key Vault secrets."
+  type        = string
+}
+
 ####################################
 # Networking
 ####################################

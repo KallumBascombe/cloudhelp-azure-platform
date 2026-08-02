@@ -131,3 +131,14 @@ resource "azurerm_role_assignment" "application_key_vault_secrets_user" {
   role_definition_name = "Key Vault Secrets User"
   principal_id         = azurerm_user_assigned_identity.application.principal_id
 }
+
+resource "azurerm_log_analytics_workspace" "cloudhelp" {
+  name                = "cloudhelp-dev-law"
+  location            = azurerm_resource_group.cloudhelp.location
+  resource_group_name = azurerm_resource_group.cloudhelp.name
+  sku                 = "PerGB2018"
+  retention_in_days   = 30
+  daily_quota_gb      = 0.5
+
+  tags = local.common_tags
+}

@@ -117,3 +117,13 @@ output "application_web_app_url" {
   description = "HTTPS URL of the CloudHelp Linux Web App."
   value       = "https://${azurerm_linux_web_app.application.default_hostname}"
 }
+
+output "log_analytics_workspace_name" {
+  description = "Name of the CloudHelp Log Analytics Workspace."
+  value       = azurerm_log_analytics_workspace.cloudhelp.name
+}
+
+output "log_analytics_workspace_id" {
+  description = "Resource ID of the CloudHelp Log Analytics Workspace."
+  value       = azurerm_log_analytics_workspace.cloudhelp.id
+}

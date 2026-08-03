@@ -63,3 +63,8 @@ variable "private_endpoint_subnet_address_prefixes" {
   type        = list(string)
   default     = ["10.10.2.0/24"]
 }
+
+variable "alert_email_address" {
+  description = "Email address that receives CloudHelp Azure Monitor alerts."
+  type        = string
+}

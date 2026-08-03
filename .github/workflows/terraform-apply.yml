@@ -30,6 +30,7 @@ jobs:
       TF_VAR_owner: ${{ vars.TF_OWNER }}
       TF_VAR_cost_centre: ${{ vars.TF_COST_CENTRE }}
       TF_VAR_key_vault_admin_object_id: ${{ vars.TF_KEY_VAULT_ADMIN_OBJECT_ID }}
+      TF_VAR_alert_email_address: ${{ vars.TF_ALERT_EMAIL_ADDRESS }}
 
     defaults:
       run:
@@ -94,7 +95,7 @@ jobs:
       TF_VAR_owner: ${{ vars.TF_OWNER }}
       TF_VAR_cost_centre: ${{ vars.TF_COST_CENTRE }}
       TF_VAR_key_vault_admin_object_id: ${{ vars.TF_KEY_VAULT_ADMIN_OBJECT_ID }}
-
+      TF_VAR_alert_email_address: ${{ vars.TF_ALERT_EMAIL_ADDRESS }}
     defaults:
       run:
         working-directory: terraform

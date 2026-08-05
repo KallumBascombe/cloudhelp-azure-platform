@@ -1,23 +1,44 @@
 # CloudHelp Azure Platform
+![Terraform](https://img.shields.io/badge/Terraform-v1.15-blue)
+![Azure](https://img.shields.io/badge/Azure-IaC-0078D4)
+![GitHub Actions](https://img.shields.io/badge/GitHub_Actions-CI/CD-success)
+![License](https://img.shields.io/badge/License-MIT-green)
 
 ## Overview
 
 CloudHelp is a fictional Software-as-a-Service (SaaS) company that provides a cloud-based help desk platform for small and medium-sized businesses.
 
-This repository documents the infrastructure used to host the CloudHelp platform in Microsoft Azure. The project is being built incrementally using Infrastructure as Code (IaC) and follows engineering best practices, with each new capability added as the project evolves.
+This repository documents the Azure infrastructure that hosts the CloudHelp platform. The platform has been built incrementally using Infrastructure as Code (IaC) and follows Azure and DevOps engineering best practices.
 
 The primary goal of this repository is to demonstrate practical Azure and DevOps skills, including Terraform, Git, GitHub Actions, Azure services, automation, monitoring and documentation.
 
 ---
 
+## Key Features
+
+- Infrastructure as Code using Terraform
+- Secure GitHub Actions CI/CD using OpenID Connect (OIDC)
+- Remote Terraform state stored in Azure Storage
+- Azure Monitor with Log Analytics, Diagnostic Settings and Alerting
+- Production-style Git workflow using feature branches and pull requests
+- Infrastructure split into modular Terraform files
+- Comprehensive project documentation
+
+---
+
 ## Project Goals
 
-- Build a realistic Azure environment using Terraform.
-- Follow Infrastructure as Code best practices.
-- Learn DevOps by developing one production-style project over time.
-- Demonstrate version control using Git and GitHub.
-- Implement CI/CD using GitHub Actions.
+- Build and maintain Azure infrastructure using Terraform.
+- Implement secure CI/CD using GitHub Actions and OpenID Connect (OIDC).
+- Apply Infrastructure as Code and DevOps best practices.
+- Demonstrate monitoring, alerting and operational readiness.
 - Produce professional documentation and architecture diagrams.
+
+---
+
+## Current Status
+
+CloudHelp Platform v1.0 is an Azure Infrastructure as Code project that provisions, secures, monitors and manages Azure infrastructure using Infrastructure as Code. The project currently includes automated CI/CD, OpenID Connect authentication, Azure Monitor alerts, Log Analytics, diagnostic settings and production-style Git workflows.
 
 ---
 
@@ -30,12 +51,20 @@ The primary goal of this repository is to demonstrate practical Azure and DevOps
 ### Infrastructure as Code
 
 - Terraform
+- AzureRM Provider
 
 ### DevOps
 
 - Git
 - GitHub
 - GitHub Actions
+- OpenID Connect (OIDC)
+
+### Monitoring
+
+- Azure Monitor
+- Log Analytics
+- Kusto Query Language (KQL)
 
 ### Scripting
 
@@ -44,28 +73,21 @@ The primary goal of this repository is to demonstrate practical Azure and DevOps
 
 ### Platform
 
-- Linux
-- Docker
-- Azure Container Apps
+- Linux App Service
 
 ---
 
-## Current Architecture
+### Current Architecture
 
 The current environment consists of:
 
-- Resource Group
-- Virtual Network
-- App Subnet
-- Private Endpoint Subnet
-- Network Security Group
-- Storage Account
-- Blob Container
-- Key Vault
-- User Assigned Managed Identity
-- Azure RBAC
-
-An architecture diagram will be added as the project evolves.
+| Area | Resources |
+|------|-----------|
+| Networking | Resource Group, Virtual Network, App Subnet, Private Endpoint Subnet, Network Security Group |
+| Identity & Security | Azure RBAC, User Assigned Managed Identity, Key Vault, GitHub OIDC Federation |
+| Compute | Linux App Service, App Service Plan |
+| Storage | Storage Account, Blob Container, Remote Terraform State |
+| Monitoring | Log Analytics Workspace, Diagnostic Settings, Azure Monitor Alerts, Action Group |
 
 ---
 
@@ -73,73 +95,130 @@ An architecture diagram will be added as the project evolves.
 
 ```
 cloudhelp-azure-platform/
+
+├── .github/
+│   └── workflows/
 │
 ├── terraform/
+│   ├── app-service.tf
+│   ├── identity.tf
+│   ├── monitoring.tf
+│   ├── app-service.tf
+│   ├── networking.tf
+│   ├── outputs.tf
+│   ├── providers.tf
+│   ├── resource-group.tf
+│   ├── storage.tf
+│   ├── versions.tf
+│   ├── key-vault.tf
+│   └── variables.tf
+│
 ├── docs/
 ├── diagrams/
 ├── screenshots/
 ├── powershell/
-├── .github/
 └── README.md
 ```
 
 ---
 
-## Roadmap
-Future milestones will introduce:
+## CI/CD
+CloudHelp uses GitHub Actions to validate, plan and deploy infrastructure changes through separate Continuous Integration (CI) and Continuous Deployment (CD) workflows.
 
-### Foundation
-- [x] Resource Group
-- [x] Virtual Network
-- [x] Storage Account
+```text
+Feature Branch
+      │
+git push
+      │
+GitHub Actions (CI)
+      │
+Terraform fmt
+      │
+Terraform validate
+      │
+Terraform plan
+      │
+Pull Request
+      │
+Code Review
+      │
+Merge to main
+      │
+Manual Environment Approval
+      │
+GitHub Actions (CD)
+      │
+Terraform Apply
+      │
+Azure Infrastructure Updated
+```
+
+--- 
+
+**Continuous Integration**
+- Terraform formatting validation
+- Terraform validation
+- Terraform execution plan
+- Pull Request status checks
+
+**Continuous Deployment**
+- Manual approval using GitHub Environments
+- Secure Azure authentication using OIDC
+- Terraform Apply
+- Infrastructure deployment to Azure
+
+**Security**
+- Passwordless authentication using OpenID Connect
+- No client secrets stored in GitHub
+- Remote Terraform state with Azure Blob Storage
+- Branch protection and required status checks
+
+--- 
+
+## Monitoring
+CloudHelp uses Azure Monitor and Log Analytics to provide operational visibility across the platform.
+Current monitoring includes:
+
+- Log Analytics Workspace
+- Diagnostic Settings for Azure resources
+- Azure Monitor Metric Alerts
+- Azure Monitor Log Alerts using KQL
+- Shared Action Group for email notifications
+
+Implemented alerts include:
+
+- HTTP 5xx responses
+- High CPU utilisation
+- High memory utilisation
+- Failed Key Vault requests
+
+---
+
+## Completed
+- [x] Azure networking
+- [x] Azure storage
 - [x] Key Vault
 - [x] Managed Identity
+- [x] App Service
+- [x] Remote Terraform state
+- [x] GitHub Actions CI/CD
+- [x] OIDC authentication
+- [x] Log Analytics
+- [x] Azure Monitor
+- [x] Azure Alerts
+- [x] KQL fundamentals
 
-### Application
-- [ ] App Service
-- [ ] Private Endpoint
-- [ ] Application Settings
+## Planned
+- [ ] Application Insights
+- [ ] Azure SQL Database
+- [ ] Private Endpoints
+- [ ] Azure Front Door
+- [ ] Production environment
+- [ ] Terraform modules
+- [ ] Containerisation
+- [ ] Kubernetes
 
-### Monitoring
-- [ ] Log Analytics
-- [ ] Azure Monitor
-- [ ] Alerts
-
-### DevOps
-- [ ] GitHub Actions
-- [ ] Remote State
-- [ ] CI/CD Pipeline
-
-### Security
-- [ ] Microsoft Defender for Cloud
-- [ ] Web Application Firewall (WAF)
-- [ ] Private DNS
-
-**Azure Infrastructure**
-
-✔ Resource Groups
-✔ Virtual Networks
-✔ Subnets
-✔ Storage Accounts
-✔ Key Vault
-✔ Managed Identity
-✔ RBAC
-
-**Infrastructure as Code**
-
-✔ Terraform
-✔ State Management
-✔ Outputs
-✔ Variables
-✔ Dependency Management
-
-**DevOps**
-
-✔ Git
-✔ Feature Branches
-✔ Pull Requests
-✔ Code Reviews
-✔ Repository Documentation
+---
 
 ## Architecture
 
@@ -147,28 +226,58 @@ The diagram below illustrates the current Azure infrastructure for the CloudHelp
 
 ![CloudHelp Architecture](diagrams/architecture.png)
 
-## Deployment Workflow
+Architecture diagram current as of CloudHelp Platform v1.0.
+
+---
+
+## Development Workflow
 
 ```text
 Feature Branch
       │
-Terraform Development
+git push
       │
-terraform fmt
+GitHub Actions (CI)
       │
-terraform validate
+Terraform fmt
       │
-terraform plan
+Terraform validate
       │
-terraform apply
-      │
-Verification
+Terraform plan
       │
 Pull Request
       │
-Merge
+Code Review
       │
-Sync main
+Merge to main
+      │
+Manual Environment Approval
+      │
+GitHub Actions (CD)
+      │
+Terraform Apply
+      │
+Azure Infrastructure Updated
 ```
 
-This repository is being developed as a long-term Azure DevOps portfolio project and will continue to evolve over time.
+---
+
+## Skills Demonstrated
+
+This project demonstrates practical experience with:
+
+- Azure infrastructure deployment
+- Infrastructure as Code (Terraform)
+- Azure RBAC and Managed Identities
+- Git and GitHub workflows
+- GitHub Actions CI/CD
+- OpenID Connect authentication
+- Azure Monitor and Log Analytics
+- Kusto Query Language (KQL)
+- Infrastructure monitoring and alerting
+- Documentation and architecture design
+
+---
+
+CloudHelp is an evolving Azure DevOps portfolio project. New Azure services, automation, monitoring capabilities and operational practices will continue to be added as the platform evolves.
+---

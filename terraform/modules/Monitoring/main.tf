@@ -1,17 +1,17 @@
 resource "azurerm_log_analytics_workspace" "cloudhelp" {
   name                = "cloudhelp-dev-law"
-  location            = azurerm_resource_group.cloudhelp.location
-  resource_group_name = azurerm_resource_group.cloudhelp.name
+  location            = var.location
+  resource_group_name = var.resource_group_name
   sku                 = "PerGB2018"
   retention_in_days   = 30
   daily_quota_gb      = 0.5
 
-  tags = local.common_tags
+  tags = var.common_tags
 }
 
 resource "azurerm_monitor_diagnostic_setting" "key_vault" {
   name                       = "${var.company_name}-${var.environment}-kv-diagnostics"
-  target_resource_id         = azurerm_key_vault.cloudhelp.id
+  target_resource_id         = var.key_vault_id
   log_analytics_workspace_id = azurerm_log_analytics_workspace.cloudhelp.id
 
   enabled_log {
@@ -29,7 +29,7 @@ resource "azurerm_monitor_diagnostic_setting" "key_vault" {
 
 resource "azurerm_monitor_diagnostic_setting" "web_app" {
   name                       = "${var.company_name}-${var.environment}-app-diagnostics"
-  target_resource_id         = azurerm_linux_web_app.application.id
+  target_resource_id         = var.web_app_id
   log_analytics_workspace_id = azurerm_log_analytics_workspace.cloudhelp.id
 
   enabled_log {
@@ -43,7 +43,7 @@ resource "azurerm_monitor_diagnostic_setting" "web_app" {
 
 resource "azurerm_monitor_diagnostic_setting" "app_service_plan" {
   name                       = "${var.company_name}-${var.environment}-app-plan-diagnostics"
-  target_resource_id         = azurerm_service_plan.application.id
+  target_resource_id         = var.app_service_plan_id
   log_analytics_workspace_id = azurerm_log_analytics_workspace.cloudhelp.id
 
   enabled_metric {
@@ -53,7 +53,7 @@ resource "azurerm_monitor_diagnostic_setting" "app_service_plan" {
 
 resource "azurerm_monitor_diagnostic_setting" "blob_storage" {
   name                       = "${var.company_name}-${var.environment}-blob-diagnostics"
-  target_resource_id         = "${azurerm_storage_account.cloudhelp.id}/blobServices/default"
+  target_resource_id         = "${var.storage_account_id}/blobServices/default"
   log_analytics_workspace_id = azurerm_log_analytics_workspace.cloudhelp.id
 
   enabled_log {
@@ -79,7 +79,7 @@ resource "azurerm_monitor_diagnostic_setting" "blob_storage" {
 
 resource "azurerm_monitor_action_group" "cloudhelp" {
   name                = "${var.company_name}-${var.environment}-ag"
-  resource_group_name = azurerm_resource_group.cloudhelp.name
+  resource_group_name = var.resource_group_name
   short_name          = "ch-${var.environment}"
 
   email_receiver {
@@ -88,13 +88,13 @@ resource "azurerm_monitor_action_group" "cloudhelp" {
     use_common_alert_schema = true
   }
 
-  tags = local.common_tags
+  tags = var.common_tags
 }
 
 resource "azurerm_monitor_metric_alert" "web_app_http_5xx" {
   name                = "${var.company_name}-${var.environment}-app-http-5xx-alert"
-  resource_group_name = azurerm_resource_group.cloudhelp.name
-  scopes              = [azurerm_linux_web_app.application.id]
+  resource_group_name = var.resource_group_name
+  scopes              = [var.web_app_id]
 
   description = "Alerts when the CloudHelp Web App returns HTTP 5xx responses."
   severity    = 1
@@ -113,13 +113,13 @@ resource "azurerm_monitor_metric_alert" "web_app_http_5xx" {
     action_group_id = azurerm_monitor_action_group.cloudhelp.id
   }
 
-  tags = local.common_tags
+  tags = var.common_tags
 }
 
 resource "azurerm_monitor_metric_alert" "app_service_plan_high_cpu" {
   name                = "${var.company_name}-${var.environment}-app-plan-high-cpu-alert"
-  resource_group_name = azurerm_resource_group.cloudhelp.name
-  scopes              = [azurerm_service_plan.application.id]
+  resource_group_name = var.resource_group_name
+  scopes              = [var.app_service_plan_id]
 
   description = "Alerts when the CloudHelp App Service Plan CPU usage is greater than 80 percent."
   severity    = 2
@@ -138,13 +138,13 @@ resource "azurerm_monitor_metric_alert" "app_service_plan_high_cpu" {
     action_group_id = azurerm_monitor_action_group.cloudhelp.id
   }
 
-  tags = local.common_tags
+  tags = var.common_tags
 }
 
 resource "azurerm_monitor_metric_alert" "app_service_plan_high_memory" {
   name                = "${var.company_name}-${var.environment}-app-plan-high-memory-alert"
-  resource_group_name = azurerm_resource_group.cloudhelp.name
-  scopes              = [azurerm_service_plan.application.id]
+  resource_group_name = var.resource_group_name
+  scopes              = [var.app_service_plan_id]
 
   description = "Alerts when the CloudHelp App Service Plan memory usage is greater than 80 percent."
   severity    = 2
@@ -163,13 +163,13 @@ resource "azurerm_monitor_metric_alert" "app_service_plan_high_memory" {
     action_group_id = azurerm_monitor_action_group.cloudhelp.id
   }
 
-  tags = local.common_tags
+  tags = var.common_tags
 }
 
 resource "azurerm_monitor_scheduled_query_rules_alert_v2" "key_vault_failed_requests" {
   name                = "${var.company_name}-${var.environment}-kv-failed-requests-alert"
-  resource_group_name = azurerm_resource_group.cloudhelp.name
-  location            = azurerm_resource_group.cloudhelp.location
+  resource_group_name = var.resource_group_name
+  location            = var.location
 
   scopes = [
     azurerm_log_analytics_workspace.cloudhelp.id
@@ -205,5 +205,5 @@ resource "azurerm_monitor_scheduled_query_rules_alert_v2" "key_vault_failed_requ
     ]
   }
 
-  tags = local.common_tags
+  tags = var.common_tags
 }

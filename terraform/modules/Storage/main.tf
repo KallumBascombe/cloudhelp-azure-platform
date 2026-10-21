@@ -7,8 +7,8 @@ resource "random_string" "storage_suffix" {
 
 resource "azurerm_storage_account" "cloudhelp" {
   name                     = "${var.company_name}${var.environment}st${random_string.storage_suffix.result}"
-  resource_group_name      = azurerm_resource_group.cloudhelp.name
-  location                 = azurerm_resource_group.cloudhelp.location
+  resource_group_name      = var.resource_group_name
+  location                 = var.location
   account_tier             = "Standard"
   account_replication_type = "LRS"
   account_kind             = "StorageV2"
@@ -18,7 +18,7 @@ resource "azurerm_storage_account" "cloudhelp" {
   min_tls_version                 = "TLS1_2"
   allow_nested_items_to_be_public = false
 
-  tags = local.common_tags
+  tags = var.common_tags
 }
 
 resource "azurerm_storage_container" "customer_files" {

@@ -10,67 +10,67 @@ output "resource_group_id" {
 
 output "virtual_network_name" {
   description = "Name of the CloudHelp virtual network."
-  value       = azurerm_virtual_network.cloudhelp.name
+  value       = module.networking.vnet_name
 }
 
 output "virtual_network_id" {
   description = "Resource ID of the CloudHelp virtual network."
-  value       = azurerm_virtual_network.cloudhelp.id
+  value       = module.networking.vnet_id
 }
 
 output "app_subnet_id" {
   description = "Resource ID of the application subnet."
-  value       = azurerm_subnet.app.id
+  value       = module.networking.app_subnet_id
 }
 
 output "private_endpoint_subnet_id" {
   description = "Resource ID of the private endpoint subnet."
-  value       = azurerm_subnet.private_endpoints.id
+  value       = module.networking.private_endpoints_subnet_id
 }
 
 output "app_network_security_group_name" {
   description = "Name of the application subnet network security group."
-  value       = azurerm_network_security_group.app.name
+  value       = module.networking.app_nsg_name
 }
 
 output "app_network_security_group_id" {
   description = "Resource ID of the application subnet network security group."
-  value       = azurerm_network_security_group.app.id
+  value       = module.networking.app_nsg_id
 }
 
 output "storage_account_name" {
   description = "Name of the CloudHelp storage account."
-  value       = azurerm_storage_account.cloudhelp.name
+  value       = module.storage.storage_account_name
 }
 
 output "storage_account_id" {
   description = "Resource ID of the CloudHelp storage account."
-  value       = azurerm_storage_account.cloudhelp.id
+  value       = module.storage.storage_account_id
 }
 
 output "customer_files_container_name" {
   description = "Name of the customer files container."
-  value       = azurerm_storage_container.customer_files.name
+  value       = module.storage.customer_files_container_name
 }
 
 output "customer_files_container_id" {
   description = "Resource ID of the customer files container."
-  value       = azurerm_storage_container.customer_files.id
+  value       = module.storage.customer_files_container_id
 }
 
 output "key_vault_name" {
   description = "Name of the CloudHelp Key Vault."
-  value       = azurerm_key_vault.cloudhelp.name
+  value       = module.key_vault.key_vault_name
 }
 
 output "key_vault_id" {
   description = "Resource ID of the CloudHelp Key Vault."
-  value       = azurerm_key_vault.cloudhelp.id
+  value       = module.key_vault.key_vault_id
 }
 
 output "key_vault_uri" {
   description = "URI used to access the CloudHelp Key Vault."
-  value       = azurerm_key_vault.cloudhelp.vault_uri
+  value       = module.key_vault.key_vault_uri
 }
 
 output "application_identity_id" {
@@ -120,10 +120,10 @@ output "application_web_app_url" {
 
 output "log_analytics_workspace_name" {
   description = "Name of the CloudHelp Log Analytics Workspace."
-  value       = azurerm_log_analytics_workspace.cloudhelp.name
+  value       = module.monitoring.log_analytics_workspace_name
 }
 
 output "log_analytics_workspace_id" {
   description = "Resource ID of the CloudHelp Log Analytics Workspace."
-  value       = azurerm_log_analytics_workspace.cloudhelp.id
+  value       = module.monitoring.log_analytics_workspace_id
 }
